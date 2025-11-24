@@ -416,7 +416,7 @@ function dm_page_audit_shortcode( $atts ) {
 
                 <td><?php echo esc_html( $slug ); ?></td>
 
-                <td><?php echo esc_html( wp_trim_words( wp_strip_all_tags( $page->post_content ), 20 ) ); ?></td>
+               <td><?php echo esc_html( dm_clean_excerpt( $page ) ); ?></td>
 
                 <td><?php echo esc_html( $wordcount ); ?></td>
 
@@ -520,3 +520,4 @@ function dm_page_audit_save_traffic() {
 }
 add_action( 'wp_ajax_dm_save_audit_traffic', 'dm_page_audit_save_traffic' );
 add_action( 'wp_ajax_nopriv_dm_save_traffic', 'dm_page_audit_save_traffic' ); // small typo-safe
+
