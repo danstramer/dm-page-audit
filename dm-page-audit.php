@@ -167,6 +167,36 @@ function dm_page_audit_shortcode( $atts ) {
         return ob_get_clean();
     }
 
+
+
+function dm_clean_excerpt($page) {
+
+    // 1. Prefer manual excerpt if it exists
+    $manual = get_the_excerpt($page->ID);
+
+    if (!empty($manual) && $manual !== $page->post_content) {
+        return wp_trim_words($manual, 25);
+    }
+
+    // 2. Fallback: clean the content
+    $raw = $page->post_content;
+
+    // Remove ALL shortcodes (anything in [ ])
+    $no_shortcodes = preg_replace('/\[.*?\]/s', '', $raw);
+
+    // Strip HTML tags
+    $text_only = wp_strip_all_tags($no_shortcodes);
+
+    // Normalize whitespace
+    $cleaned = preg_replace('/\s+/', ' ', $text_only);
+
+    // Trim to 25 words
+    return wp_trim_words($cleaned, 25);
+}
+
+
+    
+
     // Build lists for Parent & Template filters
     $parent_titles  = [];
     $template_names = [];
@@ -520,4 +550,5 @@ function dm_page_audit_save_traffic() {
 }
 add_action( 'wp_ajax_dm_save_audit_traffic', 'dm_page_audit_save_traffic' );
 add_action( 'wp_ajax_nopriv_dm_save_traffic', 'dm_page_audit_save_traffic' ); // small typo-safe
+
 
