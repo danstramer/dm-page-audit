@@ -1,9 +1,14 @@
+/* --------------------------------------------
+   PASSWORD GATE STYLES
+--------------------------------------------- */
+
 .dm-audit-password-wrap {
     max-width: 400px;
     margin: 40px auto;
     padding: 20px;
     border: 1px solid #ddd;
     background: #fafafa;
+    border-radius: 4px;
 }
 
 .dm-audit-password-wrap h2 {
@@ -13,7 +18,12 @@
 .dm-audit-error {
     color: #b00020;
     font-weight: bold;
+    margin-bottom: 10px;
 }
+
+/* --------------------------------------------
+   FILTERS + CONTROLS
+--------------------------------------------- */
 
 .dm-audit-controls {
     margin-bottom: 20px;
@@ -31,24 +41,53 @@
     margin-bottom: 5px;
 }
 
+/* --------------------------------------------
+   TABLE STYLES
+--------------------------------------------- */
+
 .dm-audit-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 13px;
+    margin-bottom: 30px;
 }
 
+/* Sticky Header */
+.dm-audit-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #f1f1f1;
+    border-bottom: 2px solid #ccc;
+}
+
+/* Default cell borders & padding */
 .dm-audit-table th,
 .dm-audit-table td {
     border: 1px solid #ddd;
     padding: 6px 8px;
-    vertical-align: top;
-}
-
-.dm-audit-table th {
-    background: #f5f5f5;
+    vertical-align: top !important; /* Align ALL cells to the top */
+    text-align: left;
     white-space: nowrap;
 }
 
+/* Zebra striping */
+.dm-audit-table tbody tr:nth-child(odd) {
+    background: #fafafa;
+}
+
+.dm-audit-table tbody tr:nth-child(even) {
+    background: #ffffff;
+}
+
+/* Hover state */
+.dm-audit-table tbody tr:hover {
+    background: #f0f7ff;
+}
+
+/* --------------------------------------------
+   STAR ICON
+--------------------------------------------- */
 .dm-star {
     cursor: pointer;
     font-size: 18px;
@@ -59,15 +98,24 @@
     color: gold;
 }
 
+/* --------------------------------------------
+   NOTES + TRAFFIC FIELDS
+--------------------------------------------- */
+
 .dm-note {
     width: 220px;
     min-height: 80px;
+    resize: vertical;
+    font-size: 12px;
+    padding: 4px;
 }
 
 .dm-traffic {
     min-width: 80px;
     display: inline-block;
     border: 1px dashed transparent;
+    padding: 2px 4px;
+    cursor: text;
 }
 
 .dm-traffic:focus {
@@ -76,7 +124,38 @@
     background: #fffceb;
 }
 
-/* DataTables tweaks */
+/* --------------------------------------------
+   DATATABLES BUTTONS & LAYOUT TWEAKS
+--------------------------------------------- */
+
 .dataTables_wrapper .dt-buttons {
     margin-bottom: 10px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 10px;
+}
+
+.dataTables_scrollHeadInner table {
+    margin-bottom: 0 !important;
+}
+
+/* Ensure sticky header works with DataTables horizontal scrolling */
+.dataTables_scrollHead {
+    overflow: visible !important;
+    z-index: 20 !important;
+}
+
+/* --------------------------------------------
+   RESPONSIVE FIXES
+--------------------------------------------- */
+
+/* Make long text wrap only in certain columns (e.g. Notes) */
+.dm-audit-table td:nth-child(20) {
+    white-space: normal;
+}
+
+/* Allow excerpt to wrap */
+.dm-audit-table td:nth-child(5) {
+    white-space: normal;
 }
