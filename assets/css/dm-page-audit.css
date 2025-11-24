@@ -158,4 +158,9 @@
 /* Allow excerpt to wrap */
 .dm-audit-table td:nth-child(5) {
     white-space: normal;
+    max-width: 300px;
+    width: 300px;        /* ensures consistent layout */
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
+
