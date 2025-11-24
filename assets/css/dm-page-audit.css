@@ -146,6 +146,8 @@
     z-index: 20 !important;
 }
 
+
+
 /* --------------------------------------------
    RESPONSIVE FIXES
 --------------------------------------------- */
@@ -157,10 +159,20 @@
 
 /* Allow excerpt to wrap */
 .dm-audit-table td:nth-child(5) {
-    white-space: normal;
+  	white-space: normal;
     max-width: 300px;
     width: 300px;        /* ensures consistent layout */
     overflow-wrap: break-word;
     word-break: break-word;
 }
 
+/* Excerpt column – fixed at 300px */
+.dm-audit-table th:nth-child(5),
+.dm-audit-table td:nth-child(5) {
+    max-width: 300px !important;
+    width: 300px !important;
+    min-width: 300px !important;
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
