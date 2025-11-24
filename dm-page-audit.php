@@ -421,70 +421,132 @@ function dm_clean_excerpt($page) {
             $internal_links  = substr_count( $page->post_content, 'href="https://' . $domain );
 
             ?>
-            <tr
-                data-page="<?php echo esc_attr( $page->ID ); ?>"
-                data-star="<?php echo $keep ? 1 : 0; ?>"
-                data-builder="<?php echo esc_attr( $builder ); ?>"
-                data-menu="<?php echo esc_attr( $in_menu ); ?>"
-                data-seo="<?php echo esc_attr( $seo_status ); ?>"
-                data-parent="<?php echo esc_attr( $parent ); ?>"
-                data-template="<?php echo esc_attr( $template ); ?>"
-                data-words="<?php echo esc_attr( $wordcount ); ?>"
-            >
+           
+			<tr
+    data-page="<?php echo esc_attr( $page->ID ); ?>"
+    data-star="<?php echo $keep ? 1 : 0; ?>"
+    data-builder="<?php echo esc_attr( $builder ); ?>"
+    data-menu="<?php echo esc_attr( $in_menu ); ?>"
+    data-seo="<?php echo esc_attr( $seo_status ); ?>"
+    data-parent="<?php echo esc_attr( $parent ); ?>"
+    data-template="<?php echo esc_attr( $template ); ?>"
+    data-words="<?php echo esc_attr( $wordcount ); ?>"
+>
 
-                <td>
-                    <span class="dm-star <?php echo $keep ? 'active' : ''; ?>">★</span>
-                </td>
+    <!-- STAR -->
+    <td data-order="<?php echo $keep ? 1 : 0; ?>">
+        <span class="dm-star <?php echo $keep ? 'active' : ''; ?>">★</span>
+    </td>
 
-                <td><?php echo esc_html( $page->post_title ); ?></td>
+    <!-- TITLE -->
+    <td data-order="<?php echo esc_attr( $page->post_title ); ?>">
+        <?php echo esc_html( $page->post_title ); ?>
+    </td>
 
-                <td>
-                    <a href="<?php echo esc_url( get_permalink( $page->ID ) ); ?>" target="_blank" rel="noopener">
-                        Open
-                    </a>
-                </td>
+    <!-- URL -->
+    <td data-order="<?php echo esc_url( get_permalink( $page->ID ) ); ?>">
+        <a href="<?php echo esc_url( get_permalink( $page->ID ) ); ?>" target="_blank" rel="noopener">Open</a>
+    </td>
 
-                <td><?php echo esc_html( $slug ); ?></td>
+    <!-- SLUG -->
+    <td data-order="<?php echo esc_attr( $slug ); ?>">
+        <?php echo esc_html( $slug ); ?>
+    </td>
 
-               <td><?php echo esc_html( dm_clean_excerpt( $page ) ); ?></td>
+    <!-- EXCERPT (cleaned) -->
+    <td data-order="<?php echo esc_attr( dm_clean_excerpt($page) ); ?>">
+        <?php echo esc_html( dm_clean_excerpt($page) ); ?>
+    </td>
 
-                <td><?php echo esc_html( $wordcount ); ?></td>
+    <!-- WORD COUNT -->
+    <td data-order="<?php echo esc_attr( $wordcount ); ?>">
+        <?php echo esc_html( $wordcount ); ?>
+    </td>
 
-                <td><?php echo esc_html( $published ); ?></td>
+    <!-- PUBLISHED DATE -->
+    <?php
+    $published_fmt  = get_the_date( '', $page->ID );
+    $published_sort = get_the_date( 'Y-m-d H:i:s', $page->ID );
+    ?>
+    <td data-order="<?php echo esc_attr( $published_sort ); ?>">
+        <?php echo esc_html( $published_fmt ); ?>
+    </td>
 
-                <td><?php echo esc_html( $updated ); ?></td>
+    <!-- UPDATED DATE -->
+    <?php
+    $updated_fmt  = get_the_modified_date( '', $page->ID );
+    $updated_sort = get_the_modified_date( 'Y-m-d H:i:s', $page->ID );
+    ?>
+    <td data-order="<?php echo esc_attr( $updated_sort ); ?>">
+        <?php echo esc_html( $updated_fmt ); ?>
+    </td>
 
-                <td><?php echo esc_html( $author ); ?></td>
+    <!-- AUTHOR -->
+    <td data-order="<?php echo esc_attr( $author ); ?>">
+        <?php echo esc_html( $author ); ?>
+    </td>
 
-                <td><?php echo esc_html( $parent ); ?></td>
+    <!-- PARENT -->
+    <td data-order="<?php echo esc_attr( $parent ); ?>">
+        <?php echo esc_html( $parent ); ?>
+    </td>
 
-                <td><?php echo esc_html( $in_menu ); ?></td>
+    <!-- MENU PRESENCE -->
+    <td data-order="<?php echo $in_menu === 'Yes' ? 1 : 0; ?>">
+        <?php echo esc_html( $in_menu ); ?>
+    </td>
 
-                <td><?php echo esc_html( $template ); ?></td>
+    <!-- TEMPLATE -->
+    <td data-order="<?php echo esc_attr( $template ); ?>">
+        <?php echo esc_html( $template ); ?>
+    </td>
 
-                <td><?php echo esc_html( $builder ); ?></td>
+    <!-- BUILDER -->
+    <td data-order="<?php echo esc_attr( $builder ); ?>">
+        <?php echo esc_html( $builder ); ?>
+    </td>
 
-                <td><?php echo esc_html( $featured ); ?></td>
+    <!-- FEATURED IMAGE -->
+    <td data-order="<?php echo $featured === 'Yes' ? 1 : 0; ?>">
+        <?php echo esc_html( $featured ); ?>
+    </td>
 
-                <td><?php echo esc_html( $redirect ); ?></td>
+    <!-- REDIRECT -->
+    <td data-order="<?php echo esc_attr( $redirect ); ?>">
+        <?php echo esc_html( $redirect ); ?>
+    </td>
 
-                <td><?php echo esc_html( $seo_title ? $seo_title : '—' ); ?></td>
+    <!-- SEO TITLE -->
+    <td data-order="<?php echo esc_attr( $seo_title ); ?>">
+        <?php echo esc_html( $seo_title ? $seo_title : '—' ); ?>
+    </td>
 
-                <td><?php echo esc_html( $meta_desc ? $meta_desc : '—' ); ?></td>
+    <!-- META DESCRIPTION -->
+    <td data-order="<?php echo esc_attr( $meta_desc ); ?>">
+        <?php echo esc_html( $meta_desc ? $meta_desc : '—' ); ?>
+    </td>
 
-                <td><?php echo esc_html( $internal_links ); ?></td>
+    <!-- INTERNAL LINKS -->
+    <td data-order="<?php echo esc_attr( $internal_links ); ?>">
+        <?php echo esc_html( $internal_links ); ?>
+    </td>
 
-                <td>
-                    <span class="dm-traffic" contenteditable="true">
-                        <?php echo esc_html( $traffic ); ?>
-                    </span>
-                </td>
+    <!-- TRAFFIC (editable) -->
+    <td data-order="<?php echo esc_attr( $traffic ); ?>">
+        <span class="dm-traffic" contenteditable="true">
+            <?php echo esc_html( $traffic ); ?>
+        </span>
+    </td>
 
-                <td>
-                    <textarea class="dm-note"><?php echo esc_textarea( $note ); ?></textarea>
-                </td>
+    <!-- NOTES (editable) -->
+    <td data-order="<?php echo esc_attr( $note ); ?>">
+        <textarea class="dm-note"><?php echo esc_textarea( $note ); ?></textarea>
+    </td>
 
-            </tr>
+</tr>
+
+			
+			
         <?php endforeach; ?>
         </tbody>
     </table>
@@ -550,5 +612,4 @@ function dm_page_audit_save_traffic() {
 }
 add_action( 'wp_ajax_dm_save_audit_traffic', 'dm_page_audit_save_traffic' );
 add_action( 'wp_ajax_nopriv_dm_save_traffic', 'dm_page_audit_save_traffic' ); // small typo-safe
-
 
